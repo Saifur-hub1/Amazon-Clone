@@ -1,17 +1,9 @@
-import { cart, deleteProduct, new_update, updateDeliveryOptionId} from "../../data/cart.js";
+import { cart, deleteProduct, new_update, updateDeliveryOptionId, makeEmpty} from "../../data/cart.js";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 import { getProducts } from "../../data/products.js";
 import { formateCurrency } from "../money/utils.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { renderPaymentSummary } from "./renderPaymentSummary.js";
-
-document.querySelector('.js-reset').addEventListener('click', ()=>{
-  localStorage.removeItem('cart');
-  localStorage.setItem('initcartquantity',0);
-  document.querySelector(".js-order-summary").innerHTML = ``;
-  renderPaymentSummary();
-  // renderUpdate();
-});
 
 export function renderUpdate(){
   let cartSummaryHTML = ``;
@@ -151,11 +143,16 @@ function deliveryOptionHTML(cartItem){
 
   return html;
 }
-
 }
-
 renderUpdate();
 
+document.querySelector('.js-reset').addEventListener('click', ()=>{
+  makeEmpty();
+  localStorage.setItem('initcartquantity',0);
+  // document.querySelector(".js-order-summary").innerHTML = ``;
+  renderUpdate();
+  renderPaymentSummary();
+});
 
 
 // console.log(cartSummaryHTML);

@@ -1,11 +1,14 @@
 export let cart = JSON.parse(localStorage.getItem('cart'));
-if(cart===null || cart===undefined){
+if(!cart){
   cart=[];
+}
+export function makeEmpty(){
+  cart = [];
+  saveToStorage();
 }
 
 function saveToStorage(){
   localStorage.setItem(`cart`,JSON.stringify(cart));
-  console.log('im in');
 }
 
 export let initCartQuantity = localStorage.getItem('initcartquantity');
